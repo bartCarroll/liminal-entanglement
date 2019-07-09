@@ -7,6 +7,13 @@
 - [12v to 24v Step-Up Converter](https://www.amazon.com/Converter-Regulator-Reducer-Waterproof-SupplyTransformer/dp/B0756W6V4F/ref=sr_1_13?keywords=12v+to+24v+dc+step+up+converter&qid=1562356872&s=gateway&sr=8-13)
 - [PiEZ Connect GPIO Breakout](https://www.adafruit.com/product/2711)
 
+## Sample Projects
+
+- [AlfaZeta Flip-Dot with Raspberry Pi](https://www.instructables.com/id/Howto-Flipdot-With-a-Raspi/)
+- [AlfaZeta Flip-Dot with Arduino](https://create.arduino.cc/projecthub/iizukak/flip-dot-clock-3dd850)
+- [Hanover Flip Dot Display - Raspberry Pi](https://engineer.john-whittington.co.uk/2017/11/adventures-flippy-flip-dot-display/)
+
+
 ## Code
 
 - [Raspbian Lite OS](https://www.raspberrypi.org/downloads/raspbian/)
