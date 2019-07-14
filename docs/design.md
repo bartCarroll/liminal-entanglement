@@ -11,3 +11,6 @@ Below is the logic flow assuming the door is co-located with the terminal.
 Below is the option for the terminal and the door being co-located. 
 
 ![circuit diagram](diagrams/terminal_diagram.PNG)
+
+![raspberry pi](diagrams/raspberry-pi-circuit.png)
+
