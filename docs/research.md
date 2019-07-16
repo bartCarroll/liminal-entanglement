@@ -12,7 +12,7 @@
 - [AlfaZeta Flip-Dot with Raspberry Pi](https://www.instructables.com/id/Howto-Flipdot-With-a-Raspi/)
 - [AlfaZeta Flip-Dot with Arduino](https://create.arduino.cc/projecthub/iizukak/flip-dot-clock-3dd850)
 - [Hanover Flip Dot Display - Raspberry Pi](https://engineer.john-whittington.co.uk/2017/11/adventures-flippy-flip-dot-display/)
-
+- [Raspberry Pi Christmas Light Show](https://www.youtube.com/watch?v=uBKYJW1PBSI)
 
 ## Code
 - [Flip Dot board driver](https://github.com/dcreemer/flipdot)
@@ -21,6 +21,16 @@
 
 ## Questions
 
-- Will a single 12V 60ah battery be sufficient to power the terminal?
-- Will the terminal also have a Charger?
+- Will 2 12V 60ah batteries with 150W solar panel be sufficient to power the terminal?
+  - Additional batteries can be added in parallel if needed. 
+- Any additional need for output besides 2 columns, door lock, sound and the display?
+- What will we display? 
+  - We have the ability to show gifs
+- Should we have alternative input besides a keyboard?
+  - Is a keyboard interesting enough for input?
+  - If no, prefer USB input. Requires less engineering time.
+- We will need airflow to keep they pi cool. if it overheats ??
+
+ 
+
 

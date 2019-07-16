@@ -1,14 +1,12 @@
 # liminal-entanglement
-This repository will contain the source and tests for the arduino code for the Liminal Entanglement burning man project. 
 
-- [Research](docs/research.md)
-- [Design](docs/design.md)
+![liminal entanglement](images/door_rendering.jpg)
 
-## Modules
-List of modules will go here
+### Overview
+This repository contains the source code for the 2019 Burning Man Project, Liminal Entanglement.
 
-## Build
-Instructions on building here
-
-## Tests
-Instructions on testing here. 
+### Project Info
+- [Project Research](docs/research.md)
+- [Project Design](docs/design.md)
+- [Diagrams](docs/diagrams)
+- [Images](images)
