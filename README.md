@@ -3,7 +3,7 @@
 ![liminal entanglement](images/door_rendering.jpg)
 
 ### Overview
-This repository contains the source code for the 2019 Burning Man Project, Liminal Entanglement.
+This repository contains the source code for the Burning Man 2019 project, Liminal Entanglement.
 
 ### Project Info
 - [Project Research](docs/research.md)
