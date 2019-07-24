@@ -1,41 +1,62 @@
+import sqlite3
 import time
-import random
+from threading import Thread, current_thread
+import signal
 from pynput import keyboard
 
-def on_press(key):
+# Builds dictionary from cursor result
+def dict_factory(cursor, row):
+    dict = {}
+    for i, col in enumerate(cursor.description):
+        dict[col[0]] = row[i]
+    return dict
+
+def create_connection(db_file):
     try:
-        print('alphanumeric key {0} pressed'.format(
-            key.char))
-    except AttributeError:
-        print('special key {0} pressed'.format(
-            key))
+        conn = sqlite3.connect(db_file)
+        return conn
+    except sqlite3.Error as e:
+        print(e)
 
-def on_release(key):
-    print('{0} released'.format(
-        key))
-    if key == keyboard.Key.esc:
-        # Stop listener
-        return False
+    return None
 
+def on_press(key):
+    print('key pressed')
+    return False # Disable listener thread.
 
+def output_categories(categories):
+    disp_str = ""
+    for cat in categories:
+        disp_str+="{id}. {display}  ".format(**cat)
+    print(disp_str)
 
-def userInteracted():
-    print("testing for user input...")
-    return False
+def do_user_interaction():
+    for i in range(0,3):
+        print("doing user interaction...")
+        time.sleep(5)
 
+def main_wait():
+    listener = keyboard.Listener(on_press=on_press)
+    listener.start()
+    while 1:
+        print("here's some random text or image")
+        time.sleep(3)
+        if not listener.is_alive():
+            do_user_interaction()
+            listener = keyboard.Listener(on_press=on_press)
 
 if __name__ == "__main__":
     print("terminal main init...")
-    f = open("quotes.txt", 'r')
-    quotes = f.readlines()
+    con = create_connection('data/le_data.db')
+    con.row_factory = dict_factory
+    with con:
+        cur = con.cursor()
+        cur.execute("SELECT * FROM CATEGORY")
+        categories = cur.fetchall()
+        output_categories(categories)
+        main_wait()
 
-    # Start non-blocking keyboard listener
-    listener = keyboard.Listener(
-        on_press=on_press,
-        on_release=on_release)
-    listener.start()
-    while 1:
-        print(random.choice(quotes)) # send to serial or potentially choose random sounds?
-        time.sleep(10)
-        if userInteracted:
-            print()
+
+
+
+
