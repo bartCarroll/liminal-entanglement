@@ -1,8 +1,8 @@
 import sqlite3
 import time
-from threading import Thread, current_thread
-import signal
+
 from pynput import keyboard
+
 
 # Builds dictionary from cursor result
 def dict_factory(cursor, row):
@@ -10,6 +10,7 @@ def dict_factory(cursor, row):
     for i, col in enumerate(cursor.description):
         dict[col[0]] = row[i]
     return dict
+
 
 def create_connection(db_file):
     try:
@@ -20,30 +21,33 @@ def create_connection(db_file):
 
     return None
 
+
 def on_press(key):
     print('key pressed')
-    return False # Disable listener thread.
+    return False  # Disable listener thread.
 
-def output_categories(categories):
+
+def format_categories(categories):
     disp_str = ""
     for cat in categories:
-        disp_str+="{id}. {display}  ".format(**cat)
-    print(disp_str)
+        disp_str += "{id}. {display}  ".format(**cat)
+    return disp_str
 
-def do_user_interaction():
-    for i in range(0,3):
-        print("doing user interaction...")
-        time.sleep(5)
 
-def main_wait():
-    listener = keyboard.Listener(on_press=on_press)
-    listener.start()
-    while 1:
-        print("here's some random text or image")
-        time.sleep(3)
-        if not listener.is_alive():
-            do_user_interaction()
-            listener = keyboard.Listener(on_press=on_press)
+def do_user_interaction(cur, categories, cat_str):
+    count = 0
+    while not count == 3:
+        print(cat_str)
+        selection = input("> ").lower()
+        selected_cat = next((item for item in categories if item["display"].lower() == selection), None)
+        print(selected_cat)
+        count+=1
+        if selected_cat:
+            cur.execute("select * from question where category_id = ? ORDER BY RANDOM() LIMIT 1", str(selected_cat['id']))
+            question = cur.fetchone()
+            print(question['text'])
+            break
+
 
 if __name__ == "__main__":
     print("terminal main init...")
@@ -53,10 +57,15 @@ if __name__ == "__main__":
         cur = con.cursor()
         cur.execute("SELECT * FROM CATEGORY")
         categories = cur.fetchall()
-        output_categories(categories)
-        main_wait()
-
-
-
-
-
+        cat_str = format_categories(categories)
+        listener = keyboard.Listener(on_press=on_press)
+        listener.start()
+        while 1:
+            print("doing the main loop, doing images / etc")
+            time.sleep(3)
+            print("listener.is_alive: " + str(listener.is_alive()))
+            print("listener.ident: " + str(listener.ident))
+            if not listener.is_alive():
+                do_user_interaction(cur, categories, cat_str)
+                listener = keyboard.Listener(on_press=on_press)
+                listener.start()

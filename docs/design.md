@@ -29,6 +29,14 @@ Below is the logic flow assuming the door is co-located with the terminal.
 
 ![raspberry pi](diagrams/raspberry-pi-circuit.png)
 
+### Components
+
+- [14 x 28 Flip-Dot Display](https://flipdots.com/en/products-services/flip-dot-boards-xy5/)
+- [Raspberry Pi 4](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/specifications/)
+- [AlfaZeta XY5 Flip-Dot display](https://flipdots.com/en/products-services/flip-dot-boards-xy5/)
+- [USB to RS485 Module](https://www.amazon.com/JBtek-Converter-Adapter-ch340T-Supported/dp/B00NKAJGZM/ref=sr_1_3?keywords=USB+to+RS485&qid=1562355433&s=gateway&sr=8-3)
+- [12v to 5v Step-Down Converter](https://www.amazon.com/Converter-DROK-Regulator-Inverter-Transformer/dp/B01NALDSJ0/ref=sr_1_6?keywords=12+volt+to+5+volt+power+regulator&qid=1562112182&s=gateway&sr=8-6)
+
 ### Original Diagram
 
 ![circuit diagram](diagrams/terminal_diagram.PNG)
