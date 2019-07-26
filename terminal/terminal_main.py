@@ -1,16 +1,21 @@
 import sqlite3
 import time
-
+from demo import animations
+from flipdot import client, display
 from pynput import keyboard
 
+d = display.Display(28, 14,
+                    panels={
+                        2: ((0, 0), (28, 7)),
+                        1: ((0, 7), (28, 7)),
+                    })
 
 # Builds dictionary from cursor result
 def dict_factory(cursor, row):
-    dict = {}
+    res_dict = {}
     for i, col in enumerate(cursor.description):
-        dict[col[0]] = row[i]
-    return dict
-
+        res_dict[col[0]] = row[i]
+    return res_dict
 
 def create_connection(db_file):
     try:
@@ -34,7 +39,7 @@ def format_categories(categories):
     return disp_str
 
 
-def do_user_interaction(cur, categories, cat_str):
+def do_user_interaction(cur, categories, cat_str, d):
     count = 0
     while not count == 3:
         print(cat_str)
@@ -45,13 +50,20 @@ def do_user_interaction(cur, categories, cat_str):
         if selected_cat:
             cur.execute("select * from question where category_id = ? ORDER BY RANDOM() LIMIT 1", str(selected_cat['id']))
             question = cur.fetchone()
-            print(question['text'])
+            animations.scroll_text(d, question['text'], font=animations.SmallFont)
+            animations.wipe_down(d)
+
             break
 
+def transition(d):
+    animations.rand(d)
 
 if __name__ == "__main__":
     print("terminal main init...")
+
     con = create_connection('data/le_data.db')
+    d.connect(client.UDPClient("localhost", 9999))
+
     con.row_factory = dict_factory
     with con:
         cur = con.cursor()
@@ -61,11 +73,15 @@ if __name__ == "__main__":
         listener = keyboard.Listener(on_press=on_press)
         listener.start()
         while 1:
-            print("doing the main loop, doing images / etc")
-            time.sleep(3)
-            print("listener.is_alive: " + str(listener.is_alive()))
-            print("listener.ident: " + str(listener.ident))
+            animations.display_text(d, "Hey")
+            time.sleep(2)
+            transition(d)
+            animations.blink_text(d, "Hi")
+            transition(d)
+            animations.rand(d)
+            animations.scroll_text(d, "Please talk to me")
+            animations.gobble(d)
             if not listener.is_alive():
-                do_user_interaction(cur, categories, cat_str)
+                do_user_interaction(cur, categories, cat_str, d)
                 listener = keyboard.Listener(on_press=on_press)
                 listener.start()
