@@ -26,6 +26,8 @@ frames3 = {0: p1, 1: p1, 2: p2, 3: p2}
 BigFont = ImageFont.truetype(rsrc("fonts/VeraBd.ttf"), 15)
 SmallFont = None
 
+bm = Image.open(rsrc("images/skull1.png"))
+bm_frame1 = {0: bm, 1: bm, 2: bm, 3: bm}
 
 def scroll_text(d, text, font=BigFont):
     draw = ImageDraw.Draw(d.im)
@@ -69,7 +71,8 @@ def animate(disp, i, w, d=1):
         disp.send()
         time.sleep(0.1)
 
-
+def heart(d):
+    animate(d, bm_frame1, 19, 1)
 #
 # animations:
 #
