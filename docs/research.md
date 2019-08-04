@@ -18,6 +18,24 @@
 - [Flip Dot board driver](https://github.com/dcreemer/flipdot)
 - [Raspbian Lite OS](https://www.raspberrypi.org/downloads/raspbian/)
 - **Raspberry Pi Flip-Dot driver:** [flipdot_demon.py](https://github.com/vwyf/vwyf_door_sensor/blob/2a281e274d4d14e7d020158d55fd5dc94bfccd13/flipdot_demon.py)
+- [Python Daemon Library](https://www.python.org/dev/peps/pep-3143/)
+
+## Software 
+
+### Simulation on Windows
+
+In order to run the simulated terminal on Windows, the curses library needs to be installed. 
+If you're on a *nix system you just need to run `pip install curses`
+  - [Python Wheels](https://pythonwheels.com/)
+  - [Curses Library](https://www.lfd.uci.edu/~gohlke/pythonlibs/)
+  - [Installing curses on windows](https://stackoverflow.com/questions/32417379/what-is-needed-for-curses-in-python-3-4-on-windows7)
+
+### Useful Tools
+
+Below is a list of tools needed to build and work with the project.
+- [MRemoteNG](https://mremoteng.org/) - For SSH / VNC connection to Raspberry PI
+- [pycharm](https://www.jetbrains.com/pycharm/) - Python IDE
+- [VNC Viewer](https://www.realvnc.com/en/connect/download/viewer/) - VNC Client
 
 ## Questions
 

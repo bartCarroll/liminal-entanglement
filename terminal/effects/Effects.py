@@ -24,10 +24,19 @@ p2 = Image.open(rsrc("images/p2.png"))
 frames3 = {0: p1, 1: p1, 2: p2, 3: p2}
 
 BigFont = ImageFont.truetype(rsrc("fonts/VeraBd.ttf"), 15)
-SmallFont = None
+SmallFont = ImageFont.truetype(rsrc("fonts/Roboto-Bold.ttf"), 10)
 
-bm = Image.open(rsrc("images/skull1.png"))
-bm_frame1 = {0: bm, 1: bm, 2: bm, 3: bm}
+skull_img = Image.open(rsrc("images/skull2.png"))
+death_frame1 = {0: skull_img, 1: skull_img, 2: skull_img, 3: skull_img}
+
+heart_img = Image.open(rsrc("images/heart.png"))
+heart_frame1 = {0: heart_img, 1: heart_img, 2: heart_img, 3: heart_img}
+
+crazy_sqr0 = Image.open(rsrc("images/crazy_square_0.png"))
+crazy_sqr1 = Image.open(rsrc("images/crazy_square_1.png"))
+crazy_sqr2 = Image.open(rsrc("images/crazy_square_2.png"))
+crazy_sqr3 = Image.open(rsrc("images/crazy_square_3.png"))
+crazy_sqr_frames = {0: crazy_sqr0, 1: crazy_sqr1, 2: crazy_sqr2, 3: crazy_sqr3}
 
 def scroll_text(d, text, font=BigFont):
     draw = ImageDraw.Draw(d.im)
@@ -59,6 +68,13 @@ def blink_text(d, text, n=3, font=SmallFont):
         d.send()
         time.sleep(0.5)
 
+def crazy_blocks(disp):
+    for i in range(3):
+        for frame in crazy_sqr_frames.values():
+            disp.reset()
+            disp.im.paste(frame, (0, 0))
+            disp.send()
+            time.sleep(0.5)
 
 def animate(disp, i, w, d=1):
     l, h = -w, 29
@@ -71,11 +87,15 @@ def animate(disp, i, w, d=1):
         disp.send()
         time.sleep(0.1)
 
-def heart(d):
-    animate(d, bm_frame1, 19, 1)
 #
 # animations:
 #
+
+def heart(d):
+    animate(d, heart_frame1, 19, 1)
+
+def skull(d):
+    animate(d, death_frame1, 19, 1)
 
 def alien_1(d):
     animate(d, frames1, 19, 1)
@@ -94,7 +114,7 @@ def dot(d):
     w, h = d.im.size
     mw = w/2
     mh = h/2
-    for i in range(0, 7):
+    for i in range(0, 14):
         d.reset()
         draw.ellipse([(mw-i, mh-i), (mw+i, mh+i)], fill=(255, 255, 255))
         d.send()
