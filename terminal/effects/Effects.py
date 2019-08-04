@@ -38,13 +38,14 @@ crazy_sqr2 = Image.open(rsrc("images/crazy_square_2.png"))
 crazy_sqr3 = Image.open(rsrc("images/crazy_square_3.png"))
 crazy_sqr_frames = {0: crazy_sqr0, 1: crazy_sqr1, 2: crazy_sqr2, 3: crazy_sqr3}
 
+
 def scroll_text(d, text, font=BigFont):
     draw = ImageDraw.Draw(d.im)
     tw, th = draw.textsize(text, font=font)
     shift = 0 if font == BigFont else -2
-    for x in range(28, 0-tw, -1):
+    for x in range(28, 0 - tw, -1):
         d.reset()
-        draw.text((x, 14-th+shift), text, font=font)
+        draw.text((x, 14 - th + shift), text, font=font)
         d.send()
         time.sleep(0.06)
     del draw
@@ -55,7 +56,7 @@ def display_text(d, text, font=SmallFont):
     tw, th = draw.textsize(text, font=font)
     shift = -1 if font == BigFont else -3
     d.reset()
-    draw.text((14-(tw/2), 14-th+shift), text, font=font)
+    draw.text((14 - (tw / 2), 14 - th + shift), text, font=font)
     d.send()
     del draw
 
@@ -68,13 +69,6 @@ def blink_text(d, text, n=3, font=SmallFont):
         d.send()
         time.sleep(0.5)
 
-def crazy_blocks(disp):
-    for i in range(3):
-        for frame in crazy_sqr_frames.values():
-            disp.reset()
-            disp.im.paste(frame, (0, 0))
-            disp.send()
-            time.sleep(0.5)
 
 def animate(disp, i, w, d=1):
     l, h = -w, 29
@@ -87,6 +81,7 @@ def animate(disp, i, w, d=1):
         disp.send()
         time.sleep(0.1)
 
+
 #
 # animations:
 #
@@ -94,8 +89,10 @@ def animate(disp, i, w, d=1):
 def heart(d):
     animate(d, heart_frame1, 19, 1)
 
+
 def skull(d):
     animate(d, death_frame1, 19, 1)
+
 
 def alien_1(d):
     animate(d, frames1, 19, 1)
@@ -112,13 +109,13 @@ def gobble(d):
 def dot(d):
     draw = ImageDraw.Draw(d.im)
     w, h = d.im.size
-    mw = w/2
-    mh = h/2
+    mw = w / 2
+    mh = h / 2
     for i in range(0, 14):
         d.reset()
-        draw.ellipse([(mw-i, mh-i), (mw+i, mh+i)], fill=(255, 255, 255))
+        draw.ellipse([(mw - i, mh - i), (mw + i, mh + i)], fill=(255, 255, 255))
         d.send()
-        time.sleep(0.6 / (i+1))
+        time.sleep(0.6 / (i + 1))
     del draw
 
 
@@ -127,7 +124,7 @@ def wipe_right(d):
     d.reset(white=True)
     d.send()
     time.sleep(0.5)
-    for x in range(1, w+1):
+    for x in range(1, w + 1):
         draw = ImageDraw.Draw(d.im)
         xy = (0, 0)
         sz = (x, h)
@@ -142,7 +139,7 @@ def wipe_down(d):
     d.reset()
     d.send()
     time.sleep(0.5)
-    for y in range(1, h+1):
+    for y in range(1, h + 1):
         draw = ImageDraw.Draw(d.im)
         xy = (0, 0)
         sz = (28, y)
@@ -154,15 +151,24 @@ def wipe_down(d):
 
 def curtain(d):
     w, h = d.im.size
-    for x in range(1, w+1):
+    for x in range(1, w + 1):
         draw = ImageDraw.Draw(d.im)
-        xy = (w-x, 0)
+        xy = (w - x, 0)
         sz = (x, h)
         draw.rectangle([(0, 0), (w, h)], fill=(255, 255, 255))
         draw.rectangle([xy, sz], fill=(0, 0, 0))
         del draw
         d.send()
         time.sleep(0.1)
+
+
+def crazy_blocks(disp):
+    for i in range(3):
+        for frame in crazy_sqr_frames.values():
+            disp.reset()
+            disp.im.paste(frame, (0, 0))
+            disp.send()
+            time.sleep(0.5)
 
 
 transitions = [
@@ -173,7 +179,7 @@ transitions = [
     wipe_right,
     wipe_down,
     gobble,
-    ]
+]
 random.shuffle(transitions)
 t_idx = 0
 
