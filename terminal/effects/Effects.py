@@ -49,6 +49,8 @@ hypno_squares_frames = {0: hypno_squares0, 1: hypno_squares1, 2: hypno_squares0,
 # STATIC IMAGES
 big_heart_img = Image.open(rsrc("images/heart_big.png"))
 big_skull_img = Image.open(rsrc("images/skull_big.png"))
+big_skull_2_img = Image.open(rsrc("images/big_skull2.png"))
+burning_man_2019_img = Image.open(rsrc("images/burning_man_2019.png"))
 cross_over_img = Image.open(rsrc("images/cross_over.png"))
 enter_here_img = Image.open(rsrc("images/enter_here.png"))
 
@@ -171,22 +173,27 @@ def curtain(d):
         d.send()
         time.sleep(0.1)
 
-def animate_14x28(disp,frames):
+
+def animate_14x28(disp, frames):
     for frame in frames.values():
         display_image(disp, frame)
         time.sleep(0.3)
+
 
 def crazy_blocks(disp):
     for i in range(10):
         animate_14x28(disp, crazy_sqr_frames)
 
+
 def big_hypno(disp):
     for i in range(10):
         animate_14x28(disp, big_hypno_frames)
 
+
 def hypno_squares(disp):
     for i in range(10):
         animate_14x28(disp, hypno_squares_frames)
+
 
 transitions = [
     dot,
@@ -202,14 +209,10 @@ transitions = [
     heart,
     skull,
 ]
-random.shuffle(transitions)
-t_idx = 0
 
 
-def rand(d):
-    global t_idx
-    f = transitions[t_idx]
-    t_idx = (t_idx + 1) % len(transitions)
+def random_transition(d):
+    f = random.choice(transitions)
     f(d)
 
 
@@ -222,6 +225,14 @@ def display_image(disp, img):
 
 def display_skull(disp):
     display_image(disp, big_skull_img)
+
+
+def display_skull2(disp):
+    display_image(disp, big_skull_2_img)
+
+
+def display_burning_man(disp):
+    display_image(disp, burning_man_2019_img)
 
 
 def display_heart(disp):
@@ -241,4 +252,11 @@ static_images = [
     display_heart,
     display_enter_here,
     display_cross_over,
+    display_burning_man,
+    display_skull2,
 ]
+
+
+def display_random_image(disp):
+    f = random.choice(static_images)
+    f(disp)
