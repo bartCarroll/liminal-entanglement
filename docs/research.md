@@ -29,6 +29,7 @@ If you're on a *nix system you just need to run `pip install curses`
   - [Python Wheels](https://pythonwheels.com/)
   - [Curses Library](https://www.lfd.uci.edu/~gohlke/pythonlibs/)
   - [Installing curses on windows](https://stackoverflow.com/questions/32417379/what-is-needed-for-curses-in-python-3-4-on-windows7)
+    - `python -m pip install curses-2.2-cp34-none-win32.whl`
 
 ### Useful Tools
 

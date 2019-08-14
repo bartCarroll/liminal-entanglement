@@ -38,6 +38,20 @@ crazy_sqr2 = Image.open(rsrc("images/crazy_square_2.png"))
 crazy_sqr3 = Image.open(rsrc("images/crazy_square_3.png"))
 crazy_sqr_frames = {0: crazy_sqr0, 1: crazy_sqr1, 2: crazy_sqr2, 3: crazy_sqr3}
 
+big_hypno0 = Image.open(rsrc("images/big_hypno_1.png"))
+big_hypno1 = Image.open(rsrc("images/big_hypno_2.png"))
+big_hypno_frames = {0: big_hypno0, 1: big_hypno1, 2: big_hypno0, 3: big_hypno1}
+
+hypno_squares0 = Image.open(rsrc("images/hypno_squares1.png"))
+hypno_squares1 = Image.open(rsrc("images/hypno_squares2.png"))
+hypno_squares_frames = {0: hypno_squares0, 1: hypno_squares1, 2: hypno_squares0, 3: hypno_squares1}
+
+# STATIC IMAGES
+big_heart_img = Image.open(rsrc("images/heart_big.png"))
+big_skull_img = Image.open(rsrc("images/skull_big.png"))
+cross_over_img = Image.open(rsrc("images/cross_over.png"))
+enter_here_img = Image.open(rsrc("images/enter_here.png"))
+
 
 def scroll_text(d, text, font=BigFont):
     draw = ImageDraw.Draw(d.im)
@@ -81,10 +95,6 @@ def animate(disp, i, w, d=1):
         disp.send()
         time.sleep(0.1)
 
-
-#
-# animations:
-#
 
 def heart(d):
     animate(d, heart_frame1, 19, 1)
@@ -161,15 +171,22 @@ def curtain(d):
         d.send()
         time.sleep(0.1)
 
+def animate_14x28(disp,frames):
+    for frame in frames.values():
+        display_image(disp, frame)
+        time.sleep(0.3)
 
 def crazy_blocks(disp):
-    for i in range(3):
-        for frame in crazy_sqr_frames.values():
-            disp.reset()
-            disp.im.paste(frame, (0, 0))
-            disp.send()
-            time.sleep(0.5)
+    for i in range(10):
+        animate_14x28(disp, crazy_sqr_frames)
 
+def big_hypno(disp):
+    for i in range(10):
+        animate_14x28(disp, big_hypno_frames)
+
+def hypno_squares(disp):
+    for i in range(10):
+        animate_14x28(disp, hypno_squares_frames)
 
 transitions = [
     dot,
@@ -179,6 +196,11 @@ transitions = [
     wipe_right,
     wipe_down,
     gobble,
+    crazy_blocks,
+    big_hypno,
+    hypno_squares,
+    heart,
+    skull,
 ]
 random.shuffle(transitions)
 t_idx = 0
@@ -189,3 +211,34 @@ def rand(d):
     f = transitions[t_idx]
     t_idx = (t_idx + 1) % len(transitions)
     f(d)
+
+
+# STATIC IMAGES
+def display_image(disp, img):
+    disp.reset()
+    disp.im.paste(img, (0, 0))
+    disp.send()
+
+
+def display_skull(disp):
+    display_image(disp, big_skull_img)
+
+
+def display_heart(disp):
+    display_image(disp, big_heart_img)
+
+
+def display_enter_here(disp):
+    display_image(disp, enter_here_img)
+
+
+def display_cross_over(disp):
+    display_image(disp, cross_over_img)
+
+
+static_images = [
+    display_skull,
+    display_heart,
+    display_enter_here,
+    display_cross_over,
+]
