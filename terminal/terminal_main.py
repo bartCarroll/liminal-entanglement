@@ -7,6 +7,8 @@ from flipdot import client, display
 from threading import Thread, Lock
 
 # CONFIGS
+from interaction.InteractionManager import InteractionManager
+
 SIMULATED = True
 SIMULATED_IP = "127.0.0.1"
 SIMULATED_PORT = 9999
@@ -24,14 +26,11 @@ def on_press(event):
         key_pressed = True
 
 
-def do_user_interaction(repo, d):
+def do_user_interaction(repo, io_manager):
     count = 0
 
     while not count == 3:
-        Effects.scroll_text(d, repo.category_string)
-        Effects.display_text(d, '???', font=Effects.BigFont)
-        cat_events = keyboard.record(until="enter")
-        selection = next(keyboard.get_typed_strings(cat_events))
+        selection = io_manager.get_user_input(repo.category_string)
         if not selection:
             # TODO ANGRY EFFECT
             return
@@ -40,15 +39,11 @@ def do_user_interaction(repo, d):
         count += 1
         if selected_cat:
             question = repo.get_random_category(selected_cat['id'])
-            Effects.scroll_text(d, question['text'], font=Effects.SmallFont)
-            Effects.display_text(d, '???', font=Effects.BigFont)
-            events = keyboard.record(until="enter")
-            answer = next(keyboard.get_typed_strings(events))
+            answer = io_manager.get_user_input(question['text'])
             if not answer:
                 # TODO ANGRY EFFECT HERE
-                Effects.scroll_text(d, font=Effects.SmallFont)
                 continue
-            Effects.scroll_text(d, answer, font=Effects.SmallFont)
+            io_manager.scroll_text(answer)
             break
 
 
@@ -69,12 +64,13 @@ def interaction_thread(disp):
     con = create_connection('data/le_data.db')
     with con:
         repo = Repository(con)
+        io_manager = InteractionManager(disp)
         keyboard.on_press(on_press)
         while True:
             with display_lock:
                 if key_pressed:
                     keyboard.unhook_all()
-                    do_user_interaction(repo, disp)
+                    do_user_interaction(repo, io_manager)
                     key_pressed = False
                     keyboard.on_press(on_press)
             time.sleep(1)
