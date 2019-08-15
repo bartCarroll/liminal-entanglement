@@ -1,2 +1,5 @@
 venv
 .idea
+/terminal/dist/
+/terminal/build/
+/terminal/liminal_entanglement.egg-info/

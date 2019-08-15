@@ -2,8 +2,8 @@ import time
 
 import keyboard
 
-import DisplayEffects
-import SoundEffects
+from effects import DisplayEffects
+from effects import SoundEffects
 
 
 class InteractionManager:

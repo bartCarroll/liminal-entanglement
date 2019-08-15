@@ -1,14 +1,13 @@
 import time
 import keyboard
 
-import SoundEffects
 from data.Repository import Repository, create_connection
 from effects import DisplayEffects
 from flipdot import client, display
 from threading import Thread, Lock
 
 # CONFIGS
-from interaction.InteractionManager import InteractionManager
+from InteractionManager import InteractionManager
 
 SIMULATED = True
 SIMULATED_IP = "127.0.0.1"
