@@ -53,6 +53,7 @@ big_skull_2_img = Image.open(rsrc("images/big_skull2.png"))
 burning_man_2019_img = Image.open(rsrc("images/burning_man_2019.png"))
 cross_over_img = Image.open(rsrc("images/cross_over.png"))
 enter_here_img = Image.open(rsrc("images/enter_here.png"))
+try_again_img = Image.open(rsrc("images/try_again.png"))
 
 
 def scroll_text(d, text, font=BigFont):
@@ -260,3 +261,7 @@ static_images = [
 def display_random_image(disp):
     f = random.choice(static_images)
     f(disp)
+
+
+def display_try_again(disp):
+    display_image(disp, try_again_img)

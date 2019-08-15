@@ -2,7 +2,7 @@
 
 import time
 
-from effects import Effects
+from effects import DisplayEffects
 from flipdot import client, display
 from itertools import cycle
 
@@ -14,12 +14,12 @@ d = display.Display(28, 14,
 
 
 def transition(d):
-    Effects.random_transition(d)
+    DisplayEffects.random_transition(d)
 
 
 def mainloop(d):
-    transitions_iter = cycle(Effects.transitions)
-    images_iter = cycle(Effects.static_images)
+    transitions_iter = cycle(DisplayEffects.transitions)
+    images_iter = cycle(DisplayEffects.static_images)
     while True:
         next(transitions_iter)(d)
         time.sleep(1)

@@ -2,20 +2,21 @@
 
 from setuptools import setup, find_packages
 
-with open('README.md') as f:
+with open('../README.md') as f:
     readme = f.read()
 
 with open('LICENSE') as f:
     license = f.read()
 
 setup(
-    name='flipdot',
-    version='0.1.0',
-    description='Driver and Simulator for Alfa-Zeta Flip-Dot',
+    name='liminal-entanglement',
+    version='1.0.0',
+    description='Interactive Art Piece',
     long_description=readme,
-    author='D Creemer',
-    author_email='dcreemer@zachary.com',
-    url='https://github.com/dcreemer/flipdot',
+    author='Bart Carroll',
+    author_email='xironoarx@gmail.com',
+    url='https://github.com/bacarroll/liminal-entanglement',
     license=license,
-    packages=find_packages(exclude=('tests', 'docs'), install_requires=['serial'])
+    packages=find_packages(exclude=('tests', 'docs')),
+    install_requires=['serial', 'pillow', 'pyserial', 'playsound', 'keyboard']
 )

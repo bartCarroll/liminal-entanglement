@@ -1,8 +1,9 @@
 import time
 import keyboard
 
+import SoundEffects
 from data.Repository import Repository, create_connection
-from effects import Effects
+from effects import DisplayEffects
 from flipdot import client, display
 from threading import Thread, Lock
 
@@ -30,32 +31,36 @@ def do_user_interaction(repo, io_manager):
     count = 0
 
     while not count == 3:
-        selection = io_manager.get_user_input(repo.category_string)
+        io_manager.select_boundary()
+        selection = io_manager.get_boundary_selection(repo.category_string)
         if not selection:
-            # TODO ANGRY EFFECT
-            return
-        selected_cat = next((item for item in repo.categories if item["display"].lower() == selection), None)
+            io_manager.try_again()
+            continue
+        selected_cat = next((item for item in repo.categories if item["display"].lower() == selection.lower()), None)
 
         count += 1
         if selected_cat:
             question = repo.get_random_category(selected_cat['id'])
-            answer = io_manager.get_user_input(question['text'])
+            answer = io_manager.get_question_response(question['text'])
             if not answer:
-                # TODO ANGRY EFFECT HERE
+                io_manager.try_again()
                 continue
             io_manager.scroll_text(answer)
             break
+        else:
+            io_manager.try_again()
+            continue
 
 
 def transition(disp):
-    Effects.random_transition(disp)
+    DisplayEffects.random_transition(disp)
 
 
 def waiting_thread(disp):
     print("Started waiting thread...")
     while 1:
         with display_lock:
-            Effects.random_transition(disp)
+            DisplayEffects.random_transition(disp)
         time.sleep(1)
 
 
