@@ -14,8 +14,8 @@ class InteractionManager:
         if not categories or len(categories) == 0:
             return ""
         DisplayEffects.scroll_text(self.display, categories)
-        DisplayEffects.display_text(self.display, '???', font=DisplayEffects.BigFont)
         SoundEffects.play_type_your_boundary()
+        DisplayEffects.display_text(self.display, '???', font=DisplayEffects.BigFont)
         cat_events = keyboard.record(until="enter")
         return next(keyboard.get_typed_strings(cat_events))
 
@@ -23,8 +23,8 @@ class InteractionManager:
         if not question:
             return ""
         DisplayEffects.scroll_text(self.display, question)
-        DisplayEffects.display_text(self.display, '???', font=DisplayEffects.BigFont)
         SoundEffects.play_type_your_answer()
+        DisplayEffects.display_text(self.display, '???', font=DisplayEffects.BigFont)
         answer_events = keyboard.record(until="enter")
         return next(keyboard.get_typed_strings(answer_events))
 

@@ -5,10 +5,10 @@ from data.Repository import Repository, create_connection
 from effects import DisplayEffects
 from flipdot import client, display
 from threading import Thread, Lock
-
-# CONFIGS
 from InteractionManager import InteractionManager
 
+
+# CONFIGS
 SIMULATED = True
 SIMULATED_IP = "127.0.0.1"
 SIMULATED_PORT = 9999
@@ -44,6 +44,8 @@ def do_user_interaction(repo, io_manager):
             if not answer:
                 io_manager.try_again()
                 continue
+            repo.insert_answer((question['id'], answer))
+            # TODO
             io_manager.scroll_text(answer)
             break
         else:
@@ -56,6 +58,7 @@ def transition(disp):
 
 
 def waiting_thread(disp):
+
     print("Started waiting thread...")
     while 1:
         with display_lock:

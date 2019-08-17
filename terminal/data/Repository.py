@@ -40,3 +40,9 @@ class Repository:
         self.cur.execute("select * from question where category_id = ? ORDER BY RANDOM() LIMIT 1",
                          str(category_id))
         return self.cur.fetchone()
+
+    def insert_answer(self, answer):
+        sql = '''INSERT INTO answer(question_id,text) VALUES(?,?)'''
+        self.cur.execute(sql, answer)
+        self.connection.commit()
+        return self.cur.lastrowid

@@ -21,9 +21,10 @@ def mainloop(d):
     transitions_iter = cycle(DisplayEffects.transitions)
     images_iter = cycle(DisplayEffects.static_images)
     while True:
-        next(transitions_iter)(d)
-        time.sleep(1)
-        next(images_iter)(d)
+        #next(transitions_iter)(d)
+        #time.sleep(1)
+        #next(images_iter)(d)
+        DisplayEffects.display_burning_man(d)
         time.sleep(3)
 
 
