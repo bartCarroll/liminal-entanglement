@@ -1,3 +1,4 @@
+import threading
 import time
 import keyboard
 
@@ -45,7 +46,8 @@ def do_user_interaction(repo, io_manager):
                 io_manager.try_again()
                 continue
             repo.insert_answer((question['id'], answer))
-            # TODO
+            t = Thread(target=GPIOManager.unlock_door, args=(), daemon=True)
+            t.start()
             io_manager.scroll_text(answer)
             break
         else:

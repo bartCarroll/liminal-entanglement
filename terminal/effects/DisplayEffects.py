@@ -182,17 +182,17 @@ def animate_14x28(disp, frames):
 
 
 def crazy_blocks(disp):
-    for i in range(10):
+    for i in range(5):
         animate_14x28(disp, crazy_sqr_frames)
 
 
 def big_hypno(disp):
-    for i in range(10):
+    for i in range(5):
         animate_14x28(disp, big_hypno_frames)
 
 
 def hypno_squares(disp):
-    for i in range(10):
+    for i in range(5):
         animate_14x28(disp, hypno_squares_frames)
 
 
