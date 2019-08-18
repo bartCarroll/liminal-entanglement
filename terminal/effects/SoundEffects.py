@@ -9,6 +9,7 @@ def rsrc(n):
 
 pygame.init()
 pygame.mixer.init()
+print("initialized pygame..")
 
 # Boundary Selection
 select_boundary1 = pygame.mixer.Sound(rsrc("sounds/select_boundary1.ogg"))
