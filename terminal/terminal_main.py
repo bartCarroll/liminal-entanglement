@@ -1,4 +1,3 @@
-import threading
 import time
 import keyboard
 
@@ -10,8 +9,10 @@ from InteractionManager import InteractionManager
 
 
 # CONFIGS
+from gpio import GPIOManager
+
 SIMULATED = True
-SIMULATED_IP = "127.0.0.1"
+SIMULATED_IP = "192.168.1.102"
 SIMULATED_PORT = 9999
 FLIPDOT_USB = '/dev/ttyUSB0'
 KEYBOARD_USB = '/dev/ttyUSB1'

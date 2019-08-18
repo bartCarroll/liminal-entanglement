@@ -18,5 +18,5 @@ setup(
     url='https://github.com/bacarroll/liminal-entanglement',
     license=license,
     packages=find_packages(exclude=('tests', 'docs')),
-    install_requires=['serial', 'pillow', 'pyserial', 'playsound', 'keyboard']
+    install_requires=['serial', 'pillow', 'pyserial', 'playsound', 'keyboard', 'pygame']
 )

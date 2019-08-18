@@ -29,7 +29,7 @@ def mainloop(d):
 
 
 def main():
-    d.connect(client.UDPClient("127.0.0.1", 9999))
+    d.connect(client.UDPClient("192.168.1.102", 9999))
 
     try:
         mainloop(d)

@@ -73,7 +73,7 @@ class ThreadedUDPServer(socketserver.ThreadingMixIn, socketserver.UDPServer):
 
 
 def start_server():
-    HOST, PORT = "localhost", 9999
+    HOST, PORT = "", 9999
     server = ThreadedUDPServer((HOST, PORT), UDPHandler)
     ip, port = server.server_address
     server_thread = threading.Thread(target=server.serve_forever)

@@ -17,7 +17,9 @@ on-board USB, audio out, and on-board storage.
 
 Open questions are located [here](research.md).
 
+## Required Packages 
 
+- `sudo apt-get install python-gst-1.0 gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-tools`
 
 ## Terminal With Door Flow
 
