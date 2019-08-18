@@ -25,7 +25,10 @@ for i in pinList:
 
 
 def unlock_door():
-    GPIO.output(GPIO_PINS['door_lock'])
-    GPIO.output(GPIO_PINS['lights_1'])
-    GPIO.output(GPIO_PINS['lights_2'])
+    GPIO.output(GPIO_PINS['door_lock'], GPIO.LOW)
+    GPIO.output(GPIO_PINS['lights_1'], GPIO.LOW)
+    GPIO.output(GPIO_PINS['lights_2'], GPIO.LOW)
     time.sleep(UNLOCK_TIME)
+    GPIO.output(GPIO_PINS['door_lock'], GPIO.HIGH)
+    GPIO.output(GPIO_PINS['lights_1'], GPIO.HIGH)
+    GPIO.output(GPIO_PINS['lights_2'], GPIO.HIGH)

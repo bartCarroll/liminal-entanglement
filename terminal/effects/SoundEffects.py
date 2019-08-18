@@ -24,6 +24,12 @@ try_again = [try_again1, boundary_beyond_try_again]
 type_your_boundary = pygame.mixer.Sound(rsrc("sounds/type_your_boundary.ogg"))
 type_your_answer = pygame.mixer.Sound(rsrc("sounds/type_your_answer1.ogg"))
 
+# Idle Sounds
+crystal_bowls1 = pygame.mixer.Sound(rsrc("sounds/crystal_bowls1.ogg"))
+crystal_bowls1 = pygame.mixer.Sound(rsrc("sounds/crystal_bowls1.ogg"))
+weird_bubbles = pygame.mixer.Sound(rsrc("sounds/weird_bubbles.ogg"))
+idle_sounds = [crystal_bowls1, crystal_bowls1]
+
 
 def play_random_try_again():
     random.choice(try_again)
