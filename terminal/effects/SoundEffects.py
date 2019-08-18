@@ -7,13 +7,16 @@ def rsrc(n):
     return os.path.join(os.path.dirname(__file__), n)
 
 
+pygame.init()
+pygame.mixer.init()
+
 # Boundary Selection
 select_boundary1 = pygame.mixer.Sound(rsrc("sounds/select_boundary1.ogg"))
 select_boundary2 = pygame.mixer.Sound(rsrc("sounds/select_boundary2.ogg"))
 boundary_selection = [select_boundary1, select_boundary2]
 
 # Try Again
-try_again1 = pygame.mixer.Sound(rsrc("sounds/try_again.mp3"))
+try_again1 = pygame.mixer.Sound(rsrc("sounds/try_again.ogg"))
 boundary_beyond_try_again = pygame.mixer.Sound(rsrc("sounds/boundary_beyond_try_again.ogg"))
 try_again = [try_again1, boundary_beyond_try_again]
 
