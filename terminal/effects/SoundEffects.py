@@ -8,17 +8,17 @@ def rsrc(n):
 
 
 # Boundary Selection
-select_boundary1 = pygame.mixer.Sound(rsrc("sounds/select_boundary1.mp3"))
-select_boundary2 = pygame.mixer.Sound(rsrc("sounds/select_boundary2.mp3"))
+select_boundary1 = pygame.mixer.Sound(rsrc("sounds/select_boundary1.ogg"))
+select_boundary2 = pygame.mixer.Sound(rsrc("sounds/select_boundary2.ogg"))
 boundary_selection = [select_boundary1, select_boundary2]
 
 # Try Again
 try_again1 = pygame.mixer.Sound(rsrc("sounds/try_again.mp3"))
-boundary_beyond_try_again = pygame.mixer.Sound(rsrc("sounds/boundary_beyond_try_again.mp3"))
+boundary_beyond_try_again = pygame.mixer.Sound(rsrc("sounds/boundary_beyond_try_again.ogg"))
 try_again = [try_again1, boundary_beyond_try_again]
 
-type_your_boundary = pygame.mixer.Sound(rsrc("sounds/type_your_boundary.mp3"))
-type_your_answer = pygame.mixer.Sound(rsrc("sounds/type_your_answer1.mp3"))
+type_your_boundary = pygame.mixer.Sound(rsrc("sounds/type_your_boundary.ogg"))
+type_your_answer = pygame.mixer.Sound(rsrc("sounds/type_your_answer1.ogg"))
 
 
 def play_random_try_again():
