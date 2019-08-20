@@ -11,6 +11,14 @@ pygame.init()
 pygame.mixer.init()
 print("initialized pygame..")
 
+categories = {
+    'love': pygame.mixer.Sound(rsrc("sounds/love.ogg")),
+    'death': pygame.mixer.Sound(rsrc("sounds/death.ogg")),
+    'time': pygame.mixer.Sound(rsrc("sounds/time.ogg")),
+    'space': pygame.mixer.Sound(rsrc("sounds/space.ogg")),
+    'life': pygame.mixer.Sound(rsrc("sounds/life.ogg"))
+}
+
 # Boundary Selection
 select_boundary1 = pygame.mixer.Sound(rsrc("sounds/select_boundary1.ogg"))
 select_boundary2 = pygame.mixer.Sound(rsrc("sounds/select_boundary2.ogg"))
@@ -25,10 +33,10 @@ type_your_boundary = pygame.mixer.Sound(rsrc("sounds/type_your_boundary.ogg"))
 type_your_answer = pygame.mixer.Sound(rsrc("sounds/type_your_answer1.ogg"))
 
 # Idle Sounds
-crystal_bowls1 = pygame.mixer.Sound(rsrc("sounds/crystal_bowls1.ogg"))
-crystal_bowls1 = pygame.mixer.Sound(rsrc("sounds/crystal_bowls1.ogg"))
-weird_bubbles = pygame.mixer.Sound(rsrc("sounds/weird_bubbles.ogg"))
-idle_sounds = [crystal_bowls1, crystal_bowls1]
+crystal_bowls1 = rsrc("sounds/crystal_bowls1.ogg")
+crystal_bowls1 = rsrc("sounds/crystal_bowls1.ogg")
+weird_bubbles = rsrc("sounds/weird_bubbles.ogg")
+idle_sounds = [crystal_bowls1, crystal_bowls1, weird_bubbles]
 
 
 def play_random_try_again():
