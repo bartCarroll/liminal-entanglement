@@ -11,6 +11,8 @@ def rsrc(n):
     return os.path.join(os.path.dirname(__file__), n)
 
 
+current_image = None
+
 a1 = Image.open(rsrc("images/a1.png"))
 a2 = Image.open(rsrc("images/a2.png"))
 frames1 = {0: a1, 1: a1, 2: a2, 3: a2}
@@ -259,8 +261,9 @@ static_images = [
 
 
 def display_random_image(disp):
-    f = random.choice(static_images)
-    f(disp)
+    global current_image
+    current_image = random.choice(static_images)
+    current_image(disp)
 
 
 def display_try_again(disp):

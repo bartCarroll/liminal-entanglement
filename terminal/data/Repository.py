@@ -46,3 +46,11 @@ class Repository:
         self.cur.execute(sql, answer)
         self.connection.commit()
         return self.cur.lastrowid
+
+    def get_random_anwer(self):
+        sql = '''SELECT a.text as 'answer', q.text as 'question' 
+                    FROM answer a JOIN question q 
+                    ON a.question_id = q.id 
+                    ORDER BY RANDOM() LIMIT 1'''
+        self.cur.execute(sql)
+        return self.cur.fetchone()

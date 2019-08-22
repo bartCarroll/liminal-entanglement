@@ -3,13 +3,11 @@ import random
 import pygame
 
 
+#pygame.init()
+pygame.mixer.init()
+
 def rsrc(n):
     return os.path.join(os.path.dirname(__file__), n)
-
-
-pygame.init()
-pygame.mixer.init()
-print("initialized pygame..")
 
 categories = {
     'love': pygame.mixer.Sound(rsrc("sounds/love.ogg")),
@@ -53,6 +51,12 @@ def play_type_your_boundary():
 
 def play_type_your_answer():
     type_your_answer.play()
+
+
+def play_random_idle_sound():
+    s = pygame.mixer.Sound(random.choice(idle_sounds))
+    s.play()
+
 
 
 

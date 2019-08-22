@@ -2,6 +2,8 @@
 
 import time
 
+import keyboard
+
 from effects import DisplayEffects
 from flipdot import client, display
 from itertools import cycle

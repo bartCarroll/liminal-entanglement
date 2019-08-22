@@ -1,3 +1,4 @@
+import random
 import time
 import keyboard
 
@@ -9,10 +10,12 @@ from InteractionManager import InteractionManager
 
 
 # CONFIGS
-from gpio import GPIOManager
-
 SIMULATED = True
-SIMULATED_IP = "192.168.1.102"
+
+if not SIMULATED:
+    from gpio import GPIOManager
+
+SIMULATED_IP = "127.0.0.1"
 SIMULATED_PORT = 9999
 FLIPDOT_USB = '/dev/ttyUSB0'
 KEYBOARD_USB = '/dev/ttyUSB1'
@@ -47,8 +50,9 @@ def do_user_interaction(repo, io_manager):
                 io_manager.try_again()
                 continue
             repo.insert_answer((question['id'], answer))
-            t = Thread(target=GPIOManager.unlock_door, args=(), daemon=True)
-            t.start()
+            if not SIMULATED:
+                t = Thread(target=GPIOManager.unlock_door, args=(), daemon=True)
+                t.start()
             io_manager.scroll_text(answer)
             break
         else:
@@ -62,11 +66,21 @@ def transition(disp):
 
 def waiting_thread(disp):
 
+    wait_times = [150, 300, 600]
     print("Started waiting thread...")
     while 1:
-        with display_lock:
-            DisplayEffects.random_transition(disp)
-        time.sleep(1)
+        try:
+            # Do transition
+            with display_lock:
+                DisplayEffects.random_transition(disp)
+
+            # Display Static Image
+            with display_lock:
+                DisplayEffects.display_random_image(disp)
+            time.sleep(random.choice(wait_times))
+        except Exception as e:
+            print("Exception in waiting thread: " + str(e))
+            continue
 
 
 def interaction_thread(disp):
@@ -77,13 +91,20 @@ def interaction_thread(disp):
         io_manager = InteractionManager(disp)
         keyboard.on_press(on_press)
         while True:
-            with display_lock:
-                if key_pressed:
-                    keyboard.unhook_all()
-                    do_user_interaction(repo, io_manager)
-                    key_pressed = False
-                    keyboard.on_press(on_press)
-            time.sleep(1)
+            try:
+                with display_lock:
+                    if key_pressed:
+                        keyboard.unhook_all()
+                        do_user_interaction(repo, io_manager)
+                        key_pressed = False
+                        keyboard.on_press(on_press)
+                        print("Current Image: " + str(DisplayEffects.current_image))
+                        if DisplayEffects.current_image:
+                            DisplayEffects.current_image(disp)
+                time.sleep(1)
+            except Exception as e:
+                print("Exception in interaction thread: " + str(e))
+                continue
 
 
 if __name__ == "__main__":
