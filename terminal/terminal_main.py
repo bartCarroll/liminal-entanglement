@@ -32,24 +32,31 @@ def on_press(event):
 
 
 def do_user_interaction(repo, io_manager):
+    io_manager.fadeout_sound()
     count = 0
-
     while not count == 3:
         io_manager.select_boundary()
-        selection = io_manager.get_boundary_selection(repo.category_string)
+        # Choose 3 Random Categories
+        categories = repo.choose_categories()
+        selection = io_manager.get_boundary_selection(categories)
         if not selection:
             io_manager.try_again()
             continue
-        selected_cat = next((item for item in repo.categories if item["display"].lower() == selection.lower()), None)
+        selected_cat = None
+        for k, v in categories.items():
+            if v["display"].lower() == selection.lower() or str(k) == selection:
+                selected_cat = v
 
         count += 1
         if selected_cat:
-            question = repo.get_random_category(selected_cat['id'])
+            question = repo.get_random_question(selected_cat['id'])
             answer = io_manager.get_question_response(question['text'])
             if not answer:
                 io_manager.try_again()
                 continue
             repo.insert_answer((question['id'], answer))
+
+            # Trigger GPIO Door Unlock
             if not SIMULATED:
                 t = Thread(target=GPIOManager.unlock_door, args=(), daemon=True)
                 t.start()
@@ -68,15 +75,19 @@ def waiting_thread(disp):
 
     wait_times = [150, 300, 600]
     print("Started waiting thread...")
+    im = InteractionManager(disp)
     while 1:
         try:
+            # Play Random Idle Sound
+            with display_lock:
+                im.play_random_idle_sound()
             # Do transition
             with display_lock:
-                DisplayEffects.random_transition(disp)
+                im.random_display_transition()
 
             # Display Static Image
             with display_lock:
-                DisplayEffects.display_random_image(disp)
+                im.display_random_image()
             time.sleep(random.choice(wait_times))
         except Exception as e:
             print("Exception in waiting thread: " + str(e))
@@ -98,7 +109,8 @@ def interaction_thread(disp):
                         do_user_interaction(repo, io_manager)
                         key_pressed = False
                         keyboard.on_press(on_press)
-                        print("Current Image: " + str(DisplayEffects.current_image))
+
+                        # Reset Static Image on display
                         if DisplayEffects.current_image:
                             DisplayEffects.current_image(disp)
                 time.sleep(1)

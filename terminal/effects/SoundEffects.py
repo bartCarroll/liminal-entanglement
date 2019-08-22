@@ -38,7 +38,7 @@ idle_sounds = [crystal_bowls1, crystal_bowls1, weird_bubbles]
 
 
 def play_random_try_again():
-    random.choice(try_again)
+    random.choice(try_again).play()
 
 
 def play_random_boundary_selection():
@@ -57,6 +57,9 @@ def play_random_idle_sound():
     s = pygame.mixer.Sound(random.choice(idle_sounds))
     s.play()
 
+
+def fadeout(time):
+    pygame.mixer.fadeout(time)
 
 
 

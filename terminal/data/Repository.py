@@ -1,3 +1,4 @@
+import random
 import sqlite3
 
 
@@ -16,7 +17,6 @@ class Repository:
         self.connection.row_factory = self.__dict_factory
         self.cur = self.connection.cursor()
         self.categories = self.__retrieve_categories()
-        self.category_string = self.__format_categories()
 
     # Builds dictionary from cursor result
     def __dict_factory(self, cursor, row):
@@ -30,13 +30,14 @@ class Repository:
         categories = self.cur.fetchall()
         return categories
 
-    def __format_categories(self):
-        disp_str = ""
-        for cat in self.categories:
-            disp_str += "{id}. {display}  ".format(**cat)
-        return disp_str
+    def choose_categories(self):
+        chosen_cats = {}
+        random.shuffle(self.categories)
+        for x in range(1, 4):
+            chosen_cats[x] = self.categories[x-1]
+        return chosen_cats
 
-    def get_random_category(self, category_id):
+    def get_random_question(self, category_id):
         self.cur.execute("select * from question where category_id = ? ORDER BY RANDOM() LIMIT 1",
                          str(category_id))
         return self.cur.fetchone()
