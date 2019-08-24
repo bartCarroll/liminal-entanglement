@@ -34,7 +34,11 @@ type_your_answer = pygame.mixer.Sound(rsrc("sounds/type_your_answer1.ogg"))
 crystal_bowls1 = rsrc("sounds/crystal_bowls1.ogg")
 crystal_bowls1 = rsrc("sounds/crystal_bowls1.ogg")
 weird_bubbles = rsrc("sounds/weird_bubbles.ogg")
-idle_sounds = [crystal_bowls1, crystal_bowls1, weird_bubbles]
+howler_monkeys = rsrc("sounds/howler_monkeys.ogg")
+ok_wildlife = rsrc("sounds/ok_wildlife.ogg")
+toads = rsrc('sounds/toads.ogg')
+waves_crashing = rsrc('sounds/waves_crashing.ogg')
+idle_sounds = [crystal_bowls1, crystal_bowls1, weird_bubbles, howler_monkeys, ok_wildlife, toads, waves_crashing]
 
 
 def play_random_try_again():

@@ -15,7 +15,7 @@ SIMULATED = True
 if not SIMULATED:
     from gpio import GPIOManager
 
-SIMULATED_IP = "127.0.0.1"
+SIMULATED_IP = "169.254.0.2"
 SIMULATED_PORT = 9999
 FLIPDOT_USB = '/dev/ttyUSB0'
 KEYBOARD_USB = '/dev/ttyUSB1'
@@ -54,7 +54,8 @@ def do_user_interaction(repo, io_manager):
             if not answer:
                 io_manager.try_again()
                 continue
-            repo.insert_answer((question['id'], answer))
+            if len(answer) < 1000:
+                repo.insert_answer((question['id'], answer))
 
             # Trigger GPIO Door Unlock
             if not SIMULATED:
@@ -72,26 +73,33 @@ def transition(disp):
 
 
 def waiting_thread(disp):
-
-    wait_times = [150, 300, 600]
-    print("Started waiting thread...")
-    im = InteractionManager(disp)
-    while 1:
-        try:
-            # Play Random Idle Sound
-            with display_lock:
-                im.play_random_idle_sound()
-            # Do transition
-            with display_lock:
-                im.random_display_transition()
-
-            # Display Static Image
-            with display_lock:
-                im.display_random_image()
-            time.sleep(random.choice(wait_times))
-        except Exception as e:
-            print("Exception in waiting thread: " + str(e))
-            continue
+    con = create_connection('data/le_data.db')
+    with con:
+        repo = Repository(con)
+        wait_times = [150, 300, 600]
+        print("Started waiting thread...")
+        im = InteractionManager(disp)
+        while 1:
+            try:
+                # Play Random Idle Sound
+                with display_lock:
+                    im.play_random_idle_sound()
+                # Do transition
+                with display_lock:
+                    im.random_display_transition()
+                with display_lock:
+                    if random.choice([0, 1, 3]) == 0:
+                        answer = repo.get_random_anwer()
+                        if answer:
+                            im.scroll_text(answer['question'])
+                            im.scroll_text(answer['answer'])
+                # Display Static Image
+                with display_lock:
+                    im.display_random_image()
+                time.sleep(random.choice(wait_times))
+            except Exception as e:
+                print("Exception in waiting thread: " + str(e))
+                continue
 
 
 def interaction_thread(disp):
@@ -120,6 +128,7 @@ def interaction_thread(disp):
 
 
 if __name__ == "__main__":
+    time.sleep(10) # Give time for system to boot properly
     flipdot_display = display.Display(28, 14,
                                       panels={
                                           2: ((0, 0), (28, 7)),
